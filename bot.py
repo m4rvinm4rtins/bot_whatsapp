@@ -1,14 +1,11 @@
 from selenium import webdriver
-import time
-import os
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import os
 import time
 import requests
+
 
 #------------------------------------------------------------------------------------------------------
 # API do Edita Código 
@@ -19,7 +16,7 @@ agent = {"User-Agent": 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (
 
 ## CHAVE
 api = requests.get("https://editacodigo.com.br/index/api-whatsapp/Udezw2NmFmDqajjP0nPvOleGMHKoLq1J" ,  headers=agent)
-
+time.sleep(1)
 #------------------------------------------------------------------------------------------------------
 
 api = api.text
@@ -54,10 +51,23 @@ def bot():
         time.sleep(1)
 
         #PEGAR O TELEFONE
-        telefone_cliente = driver.find_element(By.XPATH,'//*[@id="main"]/header/div[2]/div/div/span')
+        telefone_cliente = driver.find_element(By.XPATH,contato_cliente)
         telefone_final = telefone_cliente.text 
         print(telefone_final)
         time.sleep(1)
+
+        # Capturando a mensagem do cliente
+        todas_as_msg = driver.find_elements(By.CLASS_NAME,msg_cliente)
+        todas_as_msg_texto = [e.text for e in todas_as_msg]
+        msg = todas_as_msg_texto[-1]
+        print(msg)
+        time.sleep(5)
+
+        #Respondendo o cliente
+        campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
+        campo_de_texto.click()
+        time.sleep(1)
+        campo_de_texto.send_keys('Olá! Aqui é o Bot de atendimento', Keys.ENTER)
 
 
 
