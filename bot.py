@@ -35,6 +35,11 @@ driver = webdriver.Chrome(chrome_options2)
 driver.get('https://web.whatsapp.com/')
 time.sleep(10)
 
+def mostrar_menu():
+    menu = str("Olá, eu sou o seu assistente virtual. Como posso ajudá-lo hoje? Digite o número correspondente à sua escolha: \n 1 - Status do pedido \n 2 - Suporte técnico \n 3 - Feedback\n 4 - Falar com um atendente humano")
+    return menu
+
+menu = mostrar_menu()
 def bot():
     try:
         
@@ -60,28 +65,63 @@ def bot():
         todas_as_msg = driver.find_elements(By.CLASS_NAME,msg_cliente)
         todas_as_msg_texto = [e.text for e in todas_as_msg]
         msg = todas_as_msg_texto[-1]
-        print(msg)
         time.sleep(5)
+        if msg.isdigit():
+            numero1 = int(msg)
+            if numero1 == 1:
+                campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
+                campo_de_texto.click()
+                time.sleep(1)
+                campo_de_texto.send_keys('resposta 1', Keys.ENTER)
+            elif numero1 == 2:
+                campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
+                campo_de_texto.click()
+                campo_de_texto.send_keys('resposta 2', Keys.ENTER)
+                time.sleep(1)
 
-        #Respondendo o cliente
-        campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
-        campo_de_texto.click()
-        time.sleep(1)
-        campo_de_texto.send_keys('Olá! Aqui é o Bot de atendimento', Keys.ENTER)
+            elif numero1 == 3:
+                campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
+                campo_de_texto.click()
+                time.sleep(1)
+                campo_de_texto.send_keys('resposta 3', Keys.ENTER)
 
+            else:
+                campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
+                campo_de_texto.click()
+                time.sleep(1)
+                campo_de_texto.send_keys('resposta 4', Keys.ENTER)
 
+        else:
+            campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
+            campo_de_texto.click()
+            time.sleep(1)
+            campo_de_texto.send_keys(menu, Keys.ENTER)        
+        # print(msg)
+        
 
+        # #Respondendo o cliente
+        # campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
+        # campo_de_texto.click()
+        # time.sleep(1)
+        # if msg == 1:
+        #     campo_de_texto.send_keys('resposta 1', Keys.ENTER)
+        # elif todas_as_msg == 2:
+        #     campo_de_texto.send_keys('resposta 2', Keys.ENTER)
+        # elif todas_as_msg == 3:
+        #     campo_de_texto.send_keys('resposta 3', Keys.ENTER)
+        # elif todas_as_msg == 4:
+        #     campo_de_texto.send_keys('resposta 4', Keys.ENTER)
+        # else:
+        #     campo_de_texto.send_keys(menu, Keys.ENTER)
+            
+        
 
+        #Fechando o contato
+        webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 
-
-
-
-        #l7jjieqr cfzgl7ar ei5e7seu h0viaqh7 tpmajp1w c0uhu3dl riy2oczp dsh4tgtl sy6s5v3r gz7w46tb lyutrhe2 qfejxiq4 fewfhwl7 ovhn1urg ap18qm3b ikwl5qvt j90th5db aumms1qt
-        #faça isso aqui 
-        #caso nao consiga, tenta uma outra coisa
 
     except:
-        print('ola')
+        print('Aguardando Nova Mensagem')
         #entao vou tentar isso aqui 
 
 
