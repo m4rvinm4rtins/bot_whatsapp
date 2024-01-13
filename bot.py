@@ -61,7 +61,7 @@ def bot():
         print(telefone_final)
         time.sleep(1)
 
-        # Capturando a mensagem do cliente
+        # Capturando a mensagem do cliente e respondendo conforme a resposta
         todas_as_msg = driver.find_elements(By.CLASS_NAME,msg_cliente)
         todas_as_msg_texto = [e.text for e in todas_as_msg]
         msg = todas_as_msg_texto[-1]
@@ -96,26 +96,7 @@ def bot():
             campo_de_texto.click()
             time.sleep(1)
             campo_de_texto.send_keys(menu, Keys.ENTER)        
-        # print(msg)
         
-
-        # #Respondendo o cliente
-        # campo_de_texto = driver.find_element(By.XPATH,caixa_msg)
-        # campo_de_texto.click()
-        # time.sleep(1)
-        # if msg == 1:
-        #     campo_de_texto.send_keys('resposta 1', Keys.ENTER)
-        # elif todas_as_msg == 2:
-        #     campo_de_texto.send_keys('resposta 2', Keys.ENTER)
-        # elif todas_as_msg == 3:
-        #     campo_de_texto.send_keys('resposta 3', Keys.ENTER)
-        # elif todas_as_msg == 4:
-        #     campo_de_texto.send_keys('resposta 4', Keys.ENTER)
-        # else:
-        #     campo_de_texto.send_keys(menu, Keys.ENTER)
-            
-        
-
         #Fechando o contato
         webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
 
